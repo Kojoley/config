@@ -305,13 +305,14 @@ install:
   - cd ..
   - git clone -b $BOOST_BRANCH --depth 1 https://github.com/boostorg/boost.git boost-root
   - cd boost-root
-  - git submodule update --init tools/build
-  - git submodule update --init tools/boost_install
-  - git submodule update --init libs/headers
-  - git submodule update --init libs/detail
-  - git submodule update --init libs/core
-  - git submodule update --init libs/assert
-  - git submodule update --init libs/type_traits
+  - git submodule update --init --jobs 7 --
+      tools/build
+      tools/boost_install
+      libs/headers
+      libs/detail
+      libs/core
+      libs/assert
+      libs/type_traits
   - cp -r $TRAVIS_BUILD_DIR/* libs/config
   - ./bootstrap.sh
   - ./b2 headers
