@@ -17,7 +17,7 @@ platform:
 environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      ARGS: --toolset=clang-win address-model=32,64
+      ARGS: -d2 --toolset=clang-win address-model=32,64
       CXXSTD: 11,14,17,2a
 
 install:
