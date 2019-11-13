@@ -16,45 +16,9 @@ platform:
 
 environment:
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
-      ARGS: --toolset=msvc-14.2 address-model=32,64
-      CXXSTD: 14,17,latest,
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      ARGS: --toolset=msvc-14.1 address-model=32,64
-      CXXSTD: 14,17,latest,
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      ARGS: --toolset=msvc-14.1 address-model=32,64 cxxflags=-permissive-
-      CXXSTD: 14,17,latest,
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       ARGS: --toolset=clang-win address-model=32,64
       CXXSTD: 11,14,17,2a
-    - ARGS: --toolset=msvc-9.0  address-model=32
-    - ARGS: --toolset=msvc-10.0 address-model=32
-    - ARGS: --toolset=msvc-11.0 address-model=32
-    - ARGS: --toolset=msvc-12.0 address-model=32,64
-    - ARGS: --toolset=msvc-14.0 address-model=32,64
-      CXXSTD: 14,latest,
-    - ARGS: --toolset=gcc address-model=64 cxxstd-dialect=iso,gnu
-      CXXSTD: 03,11,14,1z
-      PATH: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
-    - ARGS: --toolset=gcc address-model=64 cxxstd-dialect=iso,gnu
-      CXXSTD: 03,11,14,1z
-      PATH: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin;%PATH%
-    - ARGS: --toolset=gcc address-model=64 cxxstd-dialect=iso,gnu
-      CXXSTD: 03,11,14,1z
-      PATH: C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\mingw64\bin;%PATH%
-    - ARGS: --toolset=gcc address-model=64 cxxstd-dialect=iso,gnu
-      CXXSTD: 03,11,14,17,2a
-      PATH: C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH%
-    - ARGS: --toolset=gcc address-model=32 cxxstd-dialect=iso,gnu linkflags=-Wl,-allow-multiple-definition
-      CXXSTD: 03,11,14,1z
-      PATH: C:\MinGW\bin;%PATH%
-    - ARGS: --toolset=gcc address-model=64 cxxstd-dialect=iso,gnu
-      CXXSTD: 03,11,14,1z
-      PATH: C:\cygwin64\bin;%PATH%
-    - ARGS: --toolset=gcc address-model=32 cxxstd-dialect=iso,gnu
-      CXXSTD: 03,11,14,1z
-      PATH: C:\cygwin\bin;%PATH%
 
 install:
   - cd ..
@@ -73,6 +37,9 @@ install:
   - b2 headers
   
 build: off
+
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 test_script:
   - cd libs\config\test
